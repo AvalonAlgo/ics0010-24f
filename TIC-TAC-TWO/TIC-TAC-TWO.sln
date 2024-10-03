@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{CA9C7F6F-E3D4-4532-B974-3C432D7DF3BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBrain", "GameBrain\GameBrain.csproj", "{F02294E5-8ED2-413E-9216-7621B06C4195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{089A45F3-FBAD-49F4-A382-5944922CF455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuSystem", "MenuSystem\MenuSystem.csproj", "{D8076D13-EC9F-4CFE-9277-2D55242FBA00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA9C7F6F-E3D4-4532-B974-3C432D7DF3BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9C7F6F-E3D4-4532-B974-3C432D7DF3BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9C7F6F-E3D4-4532-B974-3C432D7DF3BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9C7F6F-E3D4-4532-B974-3C432D7DF3BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02294E5-8ED2-413E-9216-7621B06C4195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02294E5-8ED2-413E-9216-7621B06C4195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02294E5-8ED2-413E-9216-7621B06C4195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02294E5-8ED2-413E-9216-7621B06C4195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{089A45F3-FBAD-49F4-A382-5944922CF455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{089A45F3-FBAD-49F4-A382-5944922CF455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{089A45F3-FBAD-49F4-A382-5944922CF455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{089A45F3-FBAD-49F4-A382-5944922CF455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8076D13-EC9F-4CFE-9277-2D55242FBA00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8076D13-EC9F-4CFE-9277-2D55242FBA00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8076D13-EC9F-4CFE-9277-2D55242FBA00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8076D13-EC9F-4CFE-9277-2D55242FBA00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
