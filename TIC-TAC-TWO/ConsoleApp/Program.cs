@@ -45,6 +45,8 @@ string NewGame()
 {
     while (true)
     {
+        Console.WriteLine(gameInstance.GetNextMoveBy() + "'s turn!");
+        
         ConsoleUI.Visualizer.DrawBoard(gameInstance);
         Console.Write("Give me coordinates <x,y> (ex: 1,2):");
         var input = Console.ReadLine()!;
@@ -53,7 +55,11 @@ string NewGame()
         var inputX = int.Parse(inputSplit[0]);
         var inputY = int.Parse(inputSplit[1]);
         
-        gameInstance.MakeAMove(inputX, inputY);
+        var isMoveSuccessful = gameInstance.MakeAMove(inputX, inputY);
+        if (!isMoveSuccessful)
+        {
+            Console.WriteLine("Move unsuccessful! Please try again.");
+        }
 
         // checks if a player has won, or board ran out of space - tie
         if (gameInstance.IsGameOver(inputX, inputY))

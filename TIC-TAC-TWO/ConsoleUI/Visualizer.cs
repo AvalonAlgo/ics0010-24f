@@ -10,7 +10,7 @@ public static class Visualizer
         Console.Write("  "); // Initial spacing
         for (var x = 0; x < gameInstance.DimX; x++)
         {
-            Console.Write("  " + (x) + " "); 
+            Console.Write(" " + (x) + "  "); 
         }
         Console.WriteLine();
 

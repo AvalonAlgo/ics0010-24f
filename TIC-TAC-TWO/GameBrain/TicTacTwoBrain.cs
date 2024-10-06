@@ -24,6 +24,10 @@ public class TicTacToeBrain
         private set => _gameBoard = value;
     }
 
+    public string GetNextMoveBy()
+    {
+        return _nextMoveBy.ToString();
+    }
     public string SetNextMoveBy(EGamePiece gamePiece)
     {
         _nextMoveBy = gamePiece;
