@@ -46,10 +46,15 @@ string NewGame()
     while (true)
     {
         Console.WriteLine(gameInstance.GetNextMoveBy() + "'s turn!");
-        
+        Console.WriteLine("Give me coordinates to put your mark, or to move the active zone.");
+        Console.WriteLine("To put your mark, type: <x,y> (ex: 1,2)");
+        Console.WriteLine("To move the active center, type: move <x,y> (ex: move 1,2)");
+        Console.WriteLine("Current active zone center is: " + gameInstance.SmallBoardCenterX + "," + gameInstance.SmallBoardCenterY);
+
         ConsoleUI.Visualizer.DrawBoard(gameInstance);
-        Console.Write("Give me coordinates <x,y> (ex: 1,2):");
         var input = Console.ReadLine()!;
+        
+        // parse input
         
         var inputSplit = input.Split(",");
         var inputX = int.Parse(inputSplit[0]);

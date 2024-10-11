@@ -4,7 +4,8 @@ public class TicTacToeBrain
 {
     private EGamePiece[,] _gameBoard;
     private EGamePiece _nextMoveBy = EGamePiece.X;
-    private EGamePiece[,] _smallBoard;
+    private int _smallBoardCenterX;
+    private int _smallBoardCenterY;
     
     public TicTacToeBrain(int boardSize) : this(boardSize, boardSize)
     {
@@ -12,7 +13,8 @@ public class TicTacToeBrain
     private TicTacToeBrain(int boardX, int boardY)
     {
         _gameBoard = new EGamePiece[boardX, boardY];
-        _smallBoard = new EGamePiece[3, 3];
+        _smallBoardCenterX = boardX / 2;
+        _smallBoardCenterY = boardY / 2;
     }
     
     public EGamePiece[,] GameBoard
@@ -22,6 +24,8 @@ public class TicTacToeBrain
     }
     public int DimX => _gameBoard.GetLength(0);
     public int DimY => _gameBoard.GetLength(1);
+    public int SmallBoardCenterX => _smallBoardCenterX;
+    public int SmallBoardCenterY => _smallBoardCenterY;
     
     public string GetNextMoveBy()
     {
@@ -36,17 +40,32 @@ public class TicTacToeBrain
     }
     public bool MakeAMove(int x, int y)
     {
-        if (_gameBoard[x, y] != EGamePiece.Empty)
+        if (_gameBoard[x, y] == EGamePiece.Empty)
         {
-            return false;
+            _gameBoard[x, y] = _nextMoveBy;
+            _nextMoveBy = _nextMoveBy == EGamePiece.X ? EGamePiece.O : EGamePiece.X;
+
+            return true;
         }
 
-        _gameBoard[x, y] = _nextMoveBy;
+        return false;
+    }
+    public string MoveSmallBoard(int newX, int newY)
+    {
+        int dx = newX - _smallBoardCenterX;
+        int dy = newY - _smallBoardCenterY;
         
-        // flip the next piece
-        _nextMoveBy = _nextMoveBy == EGamePiece.X ? EGamePiece.O : EGamePiece.X;
-
-        return true;
+        if (Math.Abs(dx) <= 1 && Math.Abs(dy) <= 1 && (dx != 0 || dy != 0))
+        {
+            _smallBoardCenterX = newX;
+            _smallBoardCenterY = newY;
+            
+            Console.WriteLine("Small board center moved! New center is: " + _smallBoardCenterX + "," + _smallBoardCenterY);
+            
+            return "Small board center moved!";
+        }
+        
+        return "Small board center not moved";
     }
     private bool CheckLine(int row, int col, int rowIncrement, int colIncrement, EGamePiece player)
     {
@@ -129,11 +148,5 @@ public class TicTacToeBrain
         }
 
         return false;
-    }
-
-    public void ResetGame()
-    {
-        _gameBoard = new EGamePiece[_gameBoard.GetLength(0), _gameBoard.GetLength(1)];
-        _nextMoveBy = EGamePiece.X;
     }
 }
