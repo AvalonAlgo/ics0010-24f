@@ -68,17 +68,17 @@ public class TicTacToeBrain
         
         return false;
     }
-    private bool CheckLine(int row, int col, int rowIncrement, int colIncrement, EGamePiece player)
+    private bool CheckLine(int x, int y, int dx, int dy, EGamePiece player)
     {
         int count = 0; // Start with 0, we'll increment within the loop
 
         for (int i = 0; i < 3; i++) 
         {
-            int r = row + i * rowIncrement;
-            int c = col + i * colIncrement;
-
+            int xVal = x + i * dx;
+            int yVal = y + i * dy;
+        
             // Ensure the cell is within the small 3x3 board around the center
-            if (_gameBoard[r, c] == player)
+            if (_gameBoard[xVal, yVal] == player)
             {
                 count++;
             }
@@ -91,25 +91,28 @@ public class TicTacToeBrain
         EGamePiece player = _nextMoveBy == EGamePiece.X ? EGamePiece.O : EGamePiece.X;
         
         // Check rows
-        for (int row = _smallBoardCenterY - 1; row <= _smallBoardCenterY + 1; row++)
+        for (int i = 0; i < 3; i++)
         {
-            if (CheckLine(row, _smallBoardCenterX - 1, 0, 1, player)) 
+            if (CheckLine(_smallBoardCenterX - 1, _smallBoardCenterY - 1 + i, 1, 0, player)) 
             {
                 Console.WriteLine(player + " won!");
                 return true;
             }
         }
 
-        // Check first column
-        if (CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX - 1, 1, 0, player))
+        // Check columns
+        for (int i = 0; i < 3; i++)
         {
-            Console.WriteLine(player + " won!");
-            return true;
+            if (CheckLine(_smallBoardCenterX - 1 + i, _smallBoardCenterY - 1, 0, 1, player))
+            {
+                Console.WriteLine(player + " won!");
+                return true;
+            }
         }
 
         // Check diagonals
-        if (CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX - 1, 1, 1, player) ||
-            CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX + 1, 1, -1, player))
+        if (CheckLine(_smallBoardCenterX - 1, _smallBoardCenterY - 1, 1, 1, player) ||
+            CheckLine(_smallBoardCenterX + 1, _smallBoardCenterY - 1, -1, 1, player))
         {
             Console.WriteLine(player + " won!");
             return true;
