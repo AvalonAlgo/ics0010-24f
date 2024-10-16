@@ -49,10 +49,17 @@ string NewGame()
 
     while (true)
     {
-        Console.WriteLine(gameInstance.GetNextMoveBy() + "'s turn!");
-        Console.WriteLine("Current active zone center is: " + gameInstance.SmallBoardCenterX + "," + gameInstance.SmallBoardCenterY);
-
         ConsoleUI.Visualizer.DrawBoard(gameInstance);
+        
+        if (gameInstance.IsGameOver())
+        {
+            Console.WriteLine("Thanks for playing!");
+            
+            break;
+        }
+
+        Console.WriteLine(gameInstance.GetNextMoveBy() + "'s turn!");
+        Console.WriteLine("Current active zone center is: " + gameInstance.SmallBoardCenterX + "," + gameInstance.SmallBoardCenterY + "\n");
         var input = Console.ReadLine()!;
         
         // parse input
@@ -70,14 +77,6 @@ string NewGame()
                 {
                     Console.WriteLine("Board move unsuccessful! Please try again.");
                 }
-        
-                // checks if a player has won, or board ran out of space - tie
-                if (gameInstance.IsGameOver())
-                {
-                    Console.WriteLine("Thank you for playing!");
-            
-                    break;
-                }
             }
         }
         else
@@ -90,14 +89,6 @@ string NewGame()
             if (!isMoveSuccessful)
             {
                 Console.WriteLine("Move unsuccessful! Please try again.");
-            }
-        
-            // checks if a player has won, or board ran out of space - tie
-            if (gameInstance.IsGameOver())
-            {
-                Console.WriteLine("Thanks for playing!");
-            
-                break;
             }
         }
     }

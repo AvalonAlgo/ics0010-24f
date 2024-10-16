@@ -55,7 +55,7 @@ public class TicTacToeBrain
         int dx = newX - _smallBoardCenterX;
         int dy = newY - _smallBoardCenterY;
         
-        if (Math.Abs(dx) <= 1 && Math.Abs(dy) <= 1)
+        if (Math.Abs(dx) <= 1 && Math.Abs(dy) <= 1 && newX > 0 && newY > 0)
         {
             _smallBoardCenterX = newX;
             _smallBoardCenterY = newY;
@@ -70,49 +70,51 @@ public class TicTacToeBrain
     }
     private bool CheckLine(int row, int col, int rowIncrement, int colIncrement, EGamePiece player)
     {
-        int count = 1; // Start with 1 to include the current position
+        int count = 0; // Start with 0, we'll increment within the loop
 
-        // Check in one direction
-        for (int i = 1; i < 3; i++) 
+        for (int i = 0; i < 3; i++) 
         {
             int r = row + i * rowIncrement;
             int c = col + i * colIncrement;
-            if (r >= 0 && r < _gameBoard.GetLength(0) && c >= 0 && c < _gameBoard.GetLength(1) && _gameBoard[r, c] == player)
+
+            // Ensure the cell is within the small 3x3 board around the center
+            if (_gameBoard[r, c] == player)
             {
                 count++;
             }
-            else 
-            {
-                break; 
-            }
         }
-
-        // Check in the opposite direction
-        for (int i = 1; i < 3; i++)
-        {
-            int r = row - i * rowIncrement;
-            int c = col - i * colIncrement;
-            if (r >= 0 && r < _gameBoard.GetLength(0) && c >= 0 && c < _gameBoard.GetLength(1) && _gameBoard[r, c] == player)
-            {
-                count++;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        return count >= 3;
+        
+        return count == 3;
     }
     public bool IsGameOver()
     {
-        // Func<string> printMessage = () =>
-        // {
-        //     Console.WriteLine(player + " won!"); 
-        //     return player + " won!";
-        // };
+        EGamePiece player = _nextMoveBy == EGamePiece.X ? EGamePiece.O : EGamePiece.X;
         
+        // Check rows
+        for (int row = _smallBoardCenterY - 1; row <= _smallBoardCenterY + 1; row++)
+        {
+            if (CheckLine(row, _smallBoardCenterX - 1, 0, 1, player)) 
+            {
+                Console.WriteLine(player + " won!");
+                return true;
+            }
+        }
 
-        return false;
+        // Check first column
+        if (CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX - 1, 1, 0, player))
+        {
+            Console.WriteLine(player + " won!");
+            return true;
+        }
+
+        // Check diagonals
+        if (CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX - 1, 1, 1, player) ||
+            CheckLine(_smallBoardCenterY - 1, _smallBoardCenterX + 1, 1, -1, player))
+        {
+            Console.WriteLine(player + " won!");
+            return true;
+        }
+
+        return false; 
     }
 }
