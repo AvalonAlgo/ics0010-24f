@@ -16,6 +16,12 @@ var optionsMenu = new Menu(EMenuLevel.Secondary, "TIC-TAC-TWO Options", [
             Shortcut = "O",
             MenuItemAction = () => gameInstance.SetNextMoveBy(EGamePiece.O)
         },
+        new MenuItem()
+        {
+            Title = "Board size",
+            Shortcut = "B",
+            MenuItemAction = () => gameInstance.SetBoardSize()
+        },
     ]
 );
 

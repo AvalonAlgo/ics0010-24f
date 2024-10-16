@@ -26,7 +26,18 @@ public class TicTacToeBrain
     public int DimY => _gameBoard.GetLength(1);
     public int SmallBoardCenterX => _smallBoardCenterX;
     public int SmallBoardCenterY => _smallBoardCenterY;
-    
+
+    public string SetBoardSize()
+    {
+        var input = Console.ReadLine()!;
+        int boardSize = int.Parse(input);
+        
+        _gameBoard = new EGamePiece[boardSize, boardSize];
+        _smallBoardCenterX = boardSize / 2;
+        _smallBoardCenterY = boardSize / 2;
+
+        return "yup";
+    }
     public string GetNextMoveBy()
     {
         return _nextMoveBy.ToString();
