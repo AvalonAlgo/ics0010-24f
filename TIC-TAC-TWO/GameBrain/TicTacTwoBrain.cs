@@ -50,22 +50,23 @@ public class TicTacToeBrain
 
         return false;
     }
-    public string MoveSmallBoard(int newX, int newY)
+    public bool MoveSmallBoard(int newX, int newY)
     {
         int dx = newX - _smallBoardCenterX;
         int dy = newY - _smallBoardCenterY;
         
-        if (Math.Abs(dx) <= 1 && Math.Abs(dy) <= 1 && (dx != 0 || dy != 0))
+        if (Math.Abs(dx) <= 1 && Math.Abs(dy) <= 1)
         {
             _smallBoardCenterX = newX;
             _smallBoardCenterY = newY;
             
+            _nextMoveBy = _nextMoveBy == EGamePiece.X ? EGamePiece.O : EGamePiece.X;
             Console.WriteLine("Small board center moved! New center is: " + _smallBoardCenterX + "," + _smallBoardCenterY);
             
-            return "Small board center moved!";
+            return true;
         }
         
-        return "Small board center not moved";
+        return false;
     }
     private bool CheckLine(int row, int col, int rowIncrement, int colIncrement, EGamePiece player)
     {
@@ -103,49 +104,14 @@ public class TicTacToeBrain
 
         return count >= 3;
     }
-    public bool IsGameOver(int lastMoveX, int lastMoveY)
+    public bool IsGameOver()
     {
-        EGamePiece player = _gameBoard[lastMoveX, lastMoveY]; // Get the player who made the last move
-        Func<string> printMessage = () =>
-        {
-            Console.WriteLine(player + " won!"); 
-            return player + " won!";
-        };
+        // Func<string> printMessage = () =>
+        // {
+        //     Console.WriteLine(player + " won!"); 
+        //     return player + " won!";
+        // };
         
-        // Check row
-        if (CheckLine(lastMoveX, lastMoveY, 0, 1, player))
-        {
-            printMessage();
-            return true;
-        }
-        
-        // Check column
-        if (CheckLine(lastMoveX, lastMoveY, 1, 0, player))
-        {
-            printMessage();
-            return true;
-        }
-
-        // Check diagonals
-        if (CheckLine(lastMoveX, lastMoveY, 1, 1, player))
-        {
-            printMessage();
-            return true;
-        }
-        if (CheckLine(lastMoveX, lastMoveY, 1, -1, player))
-        {
-            printMessage();
-            return true;
-        }
-        
-        // Check for a draw (if no winner and _gameBoard is full)
-        for (int row = 0; row < this.DimX; row++) {
-            for (int col = 0; col < this.DimY; col++) {
-                if (_gameBoard[row, col] == EGamePiece.Empty) { 
-                    return false; // Game not over
-                }
-            }
-        }
 
         return false;
     }

@@ -43,35 +43,62 @@ return;
 
 string NewGame()
 {
+    Console.WriteLine("Put your mark, or to move the active zone.");
+    Console.WriteLine("To put your mark, type: <x,y> (ex: 1,2)");
+    Console.WriteLine("To move the active center, type: move <x,y> (ex: move 1,2)");
+
     while (true)
     {
         Console.WriteLine(gameInstance.GetNextMoveBy() + "'s turn!");
-        Console.WriteLine("Give me coordinates to put your mark, or to move the active zone.");
-        Console.WriteLine("To put your mark, type: <x,y> (ex: 1,2)");
-        Console.WriteLine("To move the active center, type: move <x,y> (ex: move 1,2)");
         Console.WriteLine("Current active zone center is: " + gameInstance.SmallBoardCenterX + "," + gameInstance.SmallBoardCenterY);
 
         ConsoleUI.Visualizer.DrawBoard(gameInstance);
         var input = Console.ReadLine()!;
         
         // parse input
-        
-        var inputSplit = input.Split(",");
-        var inputX = int.Parse(inputSplit[0]);
-        var inputY = int.Parse(inputSplit[1]);
-        
-        var isMoveSuccessful = gameInstance.MakeAMove(inputX, inputY);
-        if (!isMoveSuccessful)
+        if (input.StartsWith("move"))
         {
-            Console.WriteLine("Move unsuccessful! Please try again.");
-        }
-
-        // checks if a player has won, or board ran out of space - tie
-        if (gameInstance.IsGameOver(inputX, inputY))
-        {
-            Console.WriteLine("Thanks for playing!");
+            var inputSplit = input.Split(' ');
+            if (inputSplit[0].ToLower().Equals("move"))
+            {
+                var coordinates = inputSplit[1].Split(",");
+                var inputX = int.Parse(coordinates[0]);
+                var inputY = int.Parse(coordinates[1]);
             
-            break;
+                var isBoardMoveSuccessful = gameInstance.MoveSmallBoard(inputX, inputY);
+                if (!isBoardMoveSuccessful)
+                {
+                    Console.WriteLine("Board move unsuccessful! Please try again.");
+                }
+        
+                // checks if a player has won, or board ran out of space - tie
+                if (gameInstance.IsGameOver())
+                {
+                    Console.WriteLine("Thank you for playing!");
+            
+                    break;
+                }
+            }
+        }
+        else
+        {
+            var inputSplit = input.Split(",");
+            var inputX = int.Parse(inputSplit[0]);
+            var inputY = int.Parse(inputSplit[1]);
+            
+            var isMoveSuccessful = gameInstance.MakeAMove(inputX, inputY);
+            if (!isMoveSuccessful)
+            {
+                Console.WriteLine("Move unsuccessful! Please try again.");
+            }
+        
+            // checks if a player has won, or board ran out of space - tie
+            if (gameInstance.IsGameOver())
+            {
+                Console.WriteLine("Thanks for playing!");
+            
+                break;
+            }
         }
     }
 
