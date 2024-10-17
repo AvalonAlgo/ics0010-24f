@@ -81,14 +81,13 @@ public class TicTacToeBrain
     }
     private bool CheckLine(int x, int y, int dx, int dy, EGamePiece player)
     {
-        int count = 0; // Start with 0, we'll increment within the loop
+        int count = 0;
 
         for (int i = 0; i < 3; i++) 
         {
             int xVal = x + i * dx;
             int yVal = y + i * dy;
         
-            // Ensure the cell is within the small 3x3 board around the center
             if (_gameBoard[xVal, yVal] == player)
             {
                 count++;
